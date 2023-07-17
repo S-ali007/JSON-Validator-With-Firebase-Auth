@@ -48,7 +48,7 @@ function SignupPage({ data }) {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-       alert(errorCode, errorMessage);
+        console.log(errorCode, errorMessage);
         // ..
       });
   }
@@ -75,7 +75,6 @@ function SignupPage({ data }) {
                   className="form-control w-full border border-blue-300 rounded-[5px] px-[4px] outline-none  hover:border-sky-700 hover:border-b-4 "
                   placeholder="Full name"
                   name="full_name"
-                  autoComplete="on"
                   onChange={handleChange}
                 />
               </div>
@@ -88,7 +87,6 @@ function SignupPage({ data }) {
                   name="email"
                   className="form-control w-full border border-blue-300 rounded-[5px] px-[4px] outline-none hover:border-sky-700 hover:border-b-4 "
                   placeholder="Enter email"
-                  autoComplete="on"
                   onChange={handleChange}
                 />
               </div>
@@ -99,7 +97,6 @@ function SignupPage({ data }) {
                 <input
                   name="password"
                   type="password"
-                  autoComplete="new-password"
                   className="form-control w-full border border-blue-300 rounded-[5px] px-[4px] outline-none hover:border-sky-700  hover:border-b-4"
                   placeholder="Enter password"
                   onChange={handleChange}

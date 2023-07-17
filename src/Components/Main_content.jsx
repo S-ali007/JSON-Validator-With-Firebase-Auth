@@ -79,7 +79,7 @@ function MainContent({ heading, extraclasses }) {
   return (
     <>
       <div
-        className="Container mt-[35px] flex justify-center"
+        className="Container mt-[35px] flex justify-center w-full max-w-[1440px]"
         onDragOver={(e) => e.preventDefault()}
         onDrop={handleFileDrop}
       >
