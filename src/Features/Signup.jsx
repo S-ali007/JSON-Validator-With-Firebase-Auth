@@ -1,14 +1,11 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../FireBase";
+import { auth, db } from "../FireBase" 
+import { addDoc, collection } from "firebase/firestore";
 
-function SignupPage({ data }) {
-  // const [name ,setname]=useState('')
-  // const [email,setemail]=useState('')
-  // const [pass,setPass]=useState('')
-  const [formData, setformData] = useState({
+function SignupPage() {
+  const [formData, setFormData] = useState({
     full_name: "",
     email: "",
     password: "",
@@ -17,40 +14,42 @@ function SignupPage({ data }) {
   const navigate = useNavigate();
 
   function handleChange(event) {
-    setformData((preFormData) => {
-      return {
-        ...preFormData,
-        [event.target.name]: event.target.value,
-      };
-    });
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [event.target.name]: event.target.value,
+    }));
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    await createUserWithEmailAndPassword(
-      auth,
-      formData.email,
-      formData.password
-    )
-      .then((userCredential) => {
-        // Signed in
-        if (userCredential.user.email) {
-          const useremail = userCredential.user.email;
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
+        console.log(userCredential)
 
-          localStorage.setItem("useremail",useremail)
-          
-          console.log(useremail);
-          navigate("/home");
-          // ...
-        }
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        // ..
+      const docRef = await addDoc(collection(db, "users"), {
+        formData,
+        userId: userCredential.user.uid,
       });
+        console.log(docRef)
+        
+      if (userCredential.user.email) {
+        
+        const useremail = userCredential.user.email;
+        localStorage.setItem("useremail", useremail);
+        console.log(useremail);
+
+        navigate("/home");
+      }
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    }
   }
 
   return (
