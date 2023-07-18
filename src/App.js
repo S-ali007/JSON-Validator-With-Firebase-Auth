@@ -14,7 +14,7 @@ function App() {
   useEffect(()=>{
     
     if (!localStorage.getItem("useremail")){
-      navigate("/")
+      navigate("/*")
     }
   }
   ,[])
