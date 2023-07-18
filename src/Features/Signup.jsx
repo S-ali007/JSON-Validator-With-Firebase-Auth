@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../FireBase" 
+import { auth, db } from "../FireBase";
 import { addDoc, collection } from "firebase/firestore";
 
 function SignupPage() {
@@ -29,26 +29,25 @@ function SignupPage() {
         formData.email,
         formData.password
       );
-        console.log(userCredential)
+      // console.log(userCredential);
 
       const docRef = await addDoc(collection(db, "users"), {
         formData,
         userId: userCredential.user.uid,
       });
-        console.log(docRef)
-        
+      // console.log(docRef);
+
       if (userCredential.user.email) {
-        
         const useremail = userCredential.user.email;
         localStorage.setItem("useremail", useremail);
-        console.log(useremail);
+        // console.log(useremail);
 
         navigate("/home");
       }
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+      alert.log(errorCode, errorMessage);
     }
   }
 

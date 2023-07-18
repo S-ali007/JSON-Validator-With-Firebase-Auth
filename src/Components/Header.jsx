@@ -24,20 +24,19 @@ function Header({ setToken, extraclasses }) {
 
       if (!querySnapshot.empty) {
         const userData = querySnapshot.docs.map((doc) => doc.data());
-        console.log("User Data:", userData);
+        // console.log("User Data:", userData);
         setInfo(userData);
-
       } else {
-        console.log("No user found with the provided email.");
-        setInfo([]); 
+        // console.log("No user found with the provided email.");
+        setInfo([]);
       }
     } catch (error) {
-      console.error("Error fetching user data:", error);
+      alert.error("Error fetching user data:", error);
     }
   }
 
   function handleLogout(e) {
-    console.log("hi");
+    // console.log("hi");
     localStorage.removeItem("useremail");
     navigate("/");
 
