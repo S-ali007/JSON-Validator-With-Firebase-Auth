@@ -95,7 +95,6 @@ function LoginPopup({ onClose, setToken }) {
           <div className="flex items-center justify-center">
             <Link to="/Signup">
               <button className="mt-4 ">
-                {" "}
                 Not Have an Account ? Sign up now
               </button>
             </Link>
